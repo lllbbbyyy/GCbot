@@ -62,7 +62,7 @@
 {
 	"host":str形式的主机，例："http://localhost:8080",
 	"auth-key":str形式的认证串,
-    "bot-qq":num形式的qq号
+	"bot-qq":num形式的qq号
 }
 ```
 
