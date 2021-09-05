@@ -28,6 +28,19 @@
 
 
 
+## 开发说明
+
+本项目基于[`graia-application`](https://github.com/GraiaProject/Application)进行开发，相关的版本要求见`examples`目录下的环境配置文档’
+
+下面是`graia`提供的一些相关开发文档与api文档：
+
+- https://graia-document.vercel.app/docs/intro
+- https://graiaproject.github.io/Application/graia/application/index.html
+
+另外`graia`的开发样例以及插件的开发样例可以参考[`saya_plugins_collection`](https://github.com/SAGIRI-kawaii/saya_plugins_collection)该项目中的实现
+
+
+
 ## 贡献说明
 
 **注意你的所有文件都应该使用UTF-8编码**
