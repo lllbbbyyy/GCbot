@@ -1,6 +1,8 @@
 # 配置文件信息
 /config.json
 
+nohup.out
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
