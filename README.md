@@ -30,7 +30,7 @@
 
 ## 开发说明
 
-本项目基于[`graia-application`](https://github.com/GraiaProject/Application)进行开发，相关的版本要求见`examples`目录下的环境配置文档’
+本项目基于[`graia-application`](https://github.com/GraiaProject/Application)进行开发，相关的版本要求见`examples`目录下的环境配置文档
 
 下面是`graia`提供的一些相关开发文档与api文档：
 
@@ -44,6 +44,10 @@
 ## 贡献说明
 
 **注意你的所有文件都应该使用UTF-8编码**
+
+请注意你的命名方式应该优先使用**蛇形命名法**，以匹配我们的整个编码风格
+
+提交Pr时应该提交到**dev分支**
 
 本项目使用Saya插件化的方法进行组织，即将自己完成的功能封装为一个插件，供main函数调用使用，插件将会统一存放在`modules`文件夹下，以供`main.py`调用
 
