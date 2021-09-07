@@ -39,6 +39,18 @@ def warn_dont_speak_explicitly():
 
 exp_list = list()  # 脏话列表
 
+'''
+请将脏话词库以json格式存储于同路径 exp_list.json 文件中
+json格式：
+{
+  "data": [
+    "脏话1",
+    "脏话2",
+    ...
+  ]
+}
+'''
+
 current_path = os.path.dirname(__file__)
 with open(current_path + '/exp_list.json', 'r', encoding='utf-8') as f:
     exp_list = json.load(f)['data']
