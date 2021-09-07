@@ -128,10 +128,12 @@ async def repeat_checker(app: GraiaMiraiApplication, group: Group,
                 msg_list.append(Plain('这是你首次在本群复读。'))
                 msg_list.append(Plain(just_warn_dont_repeat_this_time()))
             else:
+                block_time_hours = (pow(2, rc_this_group - 2)) * 12
+                block_time_hours = min(block_time_hours, 48)
                 msg_list.append(Plain(f'你在本群复读了{rc_this_group}次，'
                                       f'在高程群共复读{rc_total}次，'
-                                      f'当禁言{pow(8, rc_this_group)}秒...'))
-                await app.mute(group, member, pow(8, rc_this_group))
-                await app.sendGroupMessage(group, MessageChain.create(msg_list))
+                                      f'当禁言{block_time_hours}小时...'))
+                await app.mute(group, member, block_time_hours * 3600)
+            await app.sendGroupMessage(group, MessageChain.create(msg_list))
         else:
             last_msg[str(gid)] = message.asDisplay()
