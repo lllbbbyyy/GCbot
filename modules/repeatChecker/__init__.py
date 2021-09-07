@@ -71,6 +71,9 @@ user_record = dict()
 }
 key1 为用户QQ号
 skeyX 为群号
+
+文件存储于同路径下，以 userRecord.json 命名
+初始文件内容：{}
 '''
 
 current_path = os.path.dirname(__file__)
