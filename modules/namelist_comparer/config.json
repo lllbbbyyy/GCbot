@@ -1,0 +1,10 @@
+{
+  "filename": "namelist_demo.xls",
+  "sheet": 0,
+  "ask": [
+    "bot cmp_namelist",
+    "对照名单"
+  ],
+  "major": ["计科", "信安", "大数据", "软工", "自动化", "光电", "计拔", "测绘", "微电子", "通信"],
+  "class_num": 31
+}
