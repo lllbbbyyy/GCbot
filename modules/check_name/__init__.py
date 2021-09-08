@@ -12,7 +12,7 @@ from graia.application.group import Group, Member, MemberPerm
 __name__ = "check_name"
 __description__ = "检查群名片"
 __author__ = "hxb"
-__usage__ = "检查群名片"
+__usage__ = "群内输入 检查群名片"
 
 saya = Saya.current()
 channel = Channel.current()
@@ -31,12 +31,12 @@ root = os.path.join(os.getcwd(), "registers.json")
 with open(root, encoding='utf-8') as fp:
     register_list = json.load(fp)
 
+
 @channel.use(ListenerSchema(listening_events=[GroupMessage]))
 async def check_name(app: GraiaMiraiApplication, message: MessageChain, group: Group, member: Member):
     msg = message.asDisplay()
     ifkick = 0
     if msg in config_info["ask"] and member.id in register_list["admin"]:
-
         if msg == "pupu checkname-kick":
             ifkick = 1
         if ifkick == 1 and group.accountPerm == MemberPerm.Member:
@@ -45,8 +45,8 @@ async def check_name(app: GraiaMiraiApplication, message: MessageChain, group: G
 
         memlist = await app.memberList(group)
         msc = MessageChain.create([])
-        chain_size = 0
         kick_list = []
+        cnt = 0  # 群名片有问题的人数
 
         for mem in memlist:
             if mem.permission != MemberPerm.Member:
@@ -54,12 +54,12 @@ async def check_name(app: GraiaMiraiApplication, message: MessageChain, group: G
             if not name_match(mem.name):
                 if ifkick == 0:
                     msc.plus(MessageChain.create([At(mem.id)]))
-                    chain_size = chain_size + 1
+                    cnt += 1
                 else:
                     kick_list.append(mem)
 
         if ifkick == 0:
-            if chain_size < 1:
+            if cnt < 1:
                 await app.sendGroupMessage(group, MessageChain.create([Plain("perfect!")]))
                 return
             msc.plus(MessageChain.create([Plain(" 请以上同学尽快改正群名片哦！")]))
