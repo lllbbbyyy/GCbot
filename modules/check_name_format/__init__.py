@@ -4,7 +4,8 @@ import os
 from graia.saya import Saya, Channel
 from graia.saya.builtins.broadcast.schema import ListenerSchema
 
-from graia.application.entry import Group, GroupMessage, At, Plain, MessageChain, GraiaMiraiApplication
+from graia.application.entry import Group, GroupMessage, Member, At, Plain, MessageChain, GraiaMiraiApplication
+from graia.application.group import MemberPerm
 
 import re
 
@@ -42,7 +43,7 @@ def check_name_format_inner_get_reg_ex():
     for major in config_info['major-list']:
         reg_ex = reg_ex + '|' + major
     # 姓名
-    reg_ex = reg_ex + ")\-[\u4E00-\u9FA5"
+    reg_ex = reg_ex + ")\-[\u4E00-\u9FFF"
     for ch in config_info['special-ch']:    # 姓名中可能包含的特殊字符
         reg_ex = reg_ex + '|' + ch
     reg_ex = reg_ex + "]+$"
@@ -54,18 +55,19 @@ reg_ex = check_name_format_inner_get_reg_ex()
 
 @channel.use(ListenerSchema(listening_events=[GroupMessage]))
 async def check_name_format(app: GraiaMiraiApplication, message: MessageChain,
-                            group: Group):
+                            group: Group, member: Member):
     global reg_ex
     if message.asDisplay() == config_info['ask']:
-        msg = [Plain(config_info['top-prompt'])]
-        msg.append(Plain("\n"))    
-        memlist = await app.memberList(group)
-        for mem in memlist:
-            # 白名单检查
-            if mem.id in config_info['white-list']:
-                continue
-            if not re.match(reg_ex, mem.name):
-                msg.append(At(mem.id))
-                msg.append(Plain("\n"))
-        msg.append(Plain(config_info['bottom-prompt']))
-        await app.sendGroupMessage(group, MessageChain.create(msg))
+        if member.permission == MemberPerm.Owner or member.permission == MemberPerm.Administrator:
+            msg = [Plain(config_info['top-prompt'])]
+            msg.append(Plain("\n"))    
+            memlist = await app.memberList(group)
+            for mem in memlist:
+                # 白名单检查
+                if mem.id in config_info['white-list']:
+                    continue
+                if not re.match(reg_ex, mem.name):
+                    msg.append(At(mem.id))
+                    msg.append(Plain("\n"))
+            msg.append(Plain(config_info['bottom-prompt']))
+            await app.sendGroupMessage(group, MessageChain.create(msg))
