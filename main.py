@@ -44,6 +44,7 @@ with saya.module_context():
             else:
                 saya.require(f"modules.{module.split('.')[0]}")
         except ModuleNotFoundError:
+            print(f"ERROR: {module}模块出现异常")
             pass
 
 app.launch_blocking()
