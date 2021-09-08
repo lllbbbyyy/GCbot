@@ -1,0 +1,12 @@
+{
+  "filename": "namelist_demo.xls",
+  "sheet": 0,
+
+  "ask": [
+    "bot cmp_namelist",
+    "对照名单"
+  ],
+  "ans": [
+    " !"
+  ]
+}

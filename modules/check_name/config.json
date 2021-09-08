@@ -1,0 +1,20 @@
+{
+    "ask": [
+      "checkname",
+      "检查群名片",
+      "小鲨鱼 检查群名片",
+      "小鲨鱼 快来检查群名片",
+      "pupu 检查群名片",
+      "pupu checkname",
+      "pupu checkname-warn",
+      "pupu checkname-kick",
+      "bot 检查群名片",
+      "bot checkname",
+      "bot checkname-warn",
+      "bot checkname-kick"
+    ],
+    "ans": [
+        " ！"
+    ]
+
+}
