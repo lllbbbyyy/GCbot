@@ -1,0 +1,8 @@
+{
+	"should_use_local_exp_list": false,
+	"local_exp_list_dir": "/exp_list.json",
+	"cloud_api": {
+		"api": "https://www.gardilily.com/alpBot/api/exp_detector.php",
+		"str_key": "str"
+	}
+}
