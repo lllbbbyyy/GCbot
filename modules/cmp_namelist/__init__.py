@@ -37,8 +37,8 @@ with open(current_path + '/registers.json', encoding='utf-8') as fp:
     register_list = json.load(fp)
 
 # 班级包括以下专业和信01-信30  非正则
-class_list = ["计科", "信安", "大数据", "软工", "自动化", "光电", "计拔", "测绘", "微电子", "通信"]
-for i in range(1, 31):
+class_list = config_info["major"]
+for i in range(1, config_info["class_max"]):
     to_ins = ""
     if len(str(i)) == 1:
         to_ins = "信0" + str(i)

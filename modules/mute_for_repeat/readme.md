@@ -2,7 +2,7 @@
 
 ```json
 {
-  "swift": 1
+  "switch": 1
 }
 ```
 
