@@ -47,15 +47,18 @@ def check_name_format_inner_get_reg_ex():
         reg_ex = reg_ex + '|' + ch
     reg_ex = reg_ex + "]+$"
     return reg_ex
-    
+
+
+reg_ex = check_name_format_inner_get_reg_ex()
+
 
 @channel.use(ListenerSchema(listening_events=[GroupMessage]))
 async def check_name_format(app: GraiaMiraiApplication, message: MessageChain,
                             group: Group):
+    global reg_ex
     if message.asDisplay() == config_info['ask']:
         msg = [Plain(config_info['top-prompt'])]
         msg.append(Plain("\n"))    
-        reg_ex = check_name_format_inner_get_reg_ex()
         memlist = await app.memberList(group)
         for mem in memlist:
             # 白名单检查
