@@ -4,7 +4,7 @@ import os
 from graia.saya import Saya, Channel
 from graia.saya.builtins.broadcast.schema import ListenerSchema
 
-from graia.application.entry import Group, GroupMessage, Plain, MessageChain, GraiaMiraiApplication
+from graia.application.entry import Group, GroupMessage, Plain, MessageChain, GraiaMiraiApplication, At
 
 # 插件信息
 __name__ = "check_name"
@@ -44,7 +44,7 @@ async def check_name(app: GraiaMiraiApplication, group: Group,
             name = i.name
             for ch in name[:7]:
                 if ch < '0' or ch > '9':
-                    lst2.append(name)
+                    lst2.append(i.id)
                     flag = 1
                     break
 
@@ -57,7 +57,7 @@ async def check_name(app: GraiaMiraiApplication, group: Group,
                     break
                 j = j+1
             if j > 3:
-                lst2.append(name)
+                lst2.append(i.id)
                 continue
 
             for i in lst3:
@@ -65,10 +65,10 @@ async def check_name(app: GraiaMiraiApplication, group: Group,
                     major = 1
                     break
             if major != 1:
-                lst2.append(name)
+                lst2.append(i.id)
 
-        str = ''
+        str = MessageChain.create([Plain('')])
         for i in lst2:
-            str = str+i+'\n'
+            str.plus(MessageChain.create([At(i), Plain('\n')]))
 
-        await app.sendGroupMessage(group, MessageChain.create([Plain(str)]))
+        await app.sendGroupMessage(group, str)
