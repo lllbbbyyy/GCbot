@@ -1,13 +1,14 @@
+import json
+import os
+
 from graia.saya import Saya, Channel
 from graia.saya.builtins.broadcast.schema import ListenerSchema
 
-from graia.application import GraiaMiraiApplication, Session
+from graia.application import GraiaMiraiApplication
 from graia.application.message.chain import MessageChain
-import asyncio
-from graia.application.message.elements.internal import Plain, Face
-from graia.application.entry import Friend, Group, Member, FriendMessage, GroupMessage, GroupRecallEvent, \
-    MemberMuteEvent, At, MemberUnmuteEvent
 
+from graia.application.message.elements.internal import Plain
+from graia.application.entry import Friend, Group, Member, FriendMessage, GroupMessage, At
 # 插件信息
 __name__ = "guess"
 __description__ = "猜测首字母缩写的含义"
@@ -21,20 +22,23 @@ channel.name(__name__)
 channel.description(f"{__description__}\n使用方法：{__usage__}")
 channel.author(__author__)
 
+config_info = {}
+current_path = os.path.dirname(__file__)
+with open(current_path + '/config.json', 'r', encoding='utf-8') as f:
+    config_info = json.load(f)
 
 import requests
 
 
-url = "https://lab.magiconch.com/api/nbnhhsh/guess"
 data = {}
 
 
 # guess
 @channel.use(ListenerSchema(listening_events=[GroupMessage]))
 async def guess(app: GraiaMiraiApplication, message: MessageChain, group: Group):
-    if message.asDisplay().startswith("guess") and group.id != 642362943:
-        data["text"] = message.asDisplay()[6:]
-        resp = requests.post(url=url, data=data)
+    if message.asDisplay().startswith(config_info['key_word']) and group.id != config_info['black_list'] and config_info['allow_use']:
+        data[config_info['cloud_api']['str_key']] = message.asDisplay()[config_info['substr_start_pos']:]
+        resp = requests.post(url=config_info['cloud_api']['api'], data=data)
         json = resp.json()
         str = ""
         if not json:
@@ -43,13 +47,12 @@ async def guess(app: GraiaMiraiApplication, message: MessageChain, group: Group)
             if not json[0]["inputting"]:
                 str += "找不到噢,试试别的叭！"
             else:
-                str += message.asDisplay()[6:] + "可能是" + "\n" + json[0]["inputting"][0]
+                str += message.asDisplay()[config_info['substr_start_pos']:] + "可能是" + "\n" + json[0]["inputting"][0]
         else:
-            str += message.asDisplay()[6:] + "可能是"
+            str += message.asDisplay()[config_info['substr_start_pos']:] + "可能是"
             for i in json[0]["trans"]:
                 str += '\n' + i
         await app.sendGroupMessage(group, MessageChain.create([Plain(str)]))
-        # last_msg[group.name] = str
 
 
 # @channel.use(ListenerSchema(listening_events=[GroupMessage]))
