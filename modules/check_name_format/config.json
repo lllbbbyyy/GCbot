@@ -1,10 +1,40 @@
 {
-    "ask" : "检查群名片",
-    "top-prompt" : "请修改群名片:",
-    "bottom-prompt" : "",
-    "white-list" : [278787983],
-    "stu-years" : "(17|18|19|20|21)",
-    "class-num" : 21,
-    "major-list" : ["计拔", "计科", "软工", "信安", "大数据", "通信", "微电子", "测绘"],
-    "special-ch" : ["·"]
+    "default-strategy" :
+    {
+        "ask" : "检查群名片",
+        "top-prompt" : "请修改群名片:",
+        "bottom-prompt" : "",
+        "white-list" : [278787983],
+        "stu-years" : "(17|18|19|20|21)",
+        "class-num" : 21,
+        "major-list" : ["计拔", "计科", "软工", "信安", "大数据", "通信", "微电子", "测绘"],
+        "special-ch" : ["·"],
+        "permission" : "Owner-Admin",
+        "should-at" : true
+    },
+    
+    "groups-enabled" :
+    {
+        "642362943" :
+        {
+            "use-default-strategy" : true
+        },
+        "123456789" :
+        {
+            "use-default-strategy" : false,
+            "strategy" :
+            {
+                "ask" : "test",
+                "top-prompt" : "测试用，不@人",
+                "bottom-prompt" : "",
+                "white-list" : [278787983],
+                "stu-years" : "(17|18|19|20|21)",
+                "class-num" : 21,
+                "major-list" : ["计拔", "计科", "软工", "信安", "大数据", "通信", "微电子", "测绘"],
+                "special-ch" : ["·", "•"],
+                "permission" : "All",
+                "should-at" : false
+            }
+        }
+    }
 }
