@@ -1,3 +1,6 @@
+import json
+import os
+
 from graia.saya import Saya, Channel
 from graia.saya.builtins.broadcast.schema import ListenerSchema
 
@@ -7,6 +10,8 @@ import asyncio
 from graia.application.message.elements.internal import Plain, Face
 from graia.application.entry import Friend, Group, Member, FriendMessage, GroupMessage, GroupRecallEvent, \
     MemberMuteEvent, At, MemberUnmuteEvent
+
+import re
 
 # 插件信息
 __name__ = "kick_group_member"
@@ -21,34 +26,24 @@ channel.name(__name__)
 channel.description(f"{__description__}\n使用方法：{__usage__}")
 channel.author(__author__)
 
+config_info = {}
+current_path = os.path.dirname(__file__)
+with open(current_path + '/config.json', 'r', encoding='utf-8') as f:
+    config_info = json.load(f)
 
-# last_msg = {}  # 用于维护每个群最后一句话
 
-major_lst = ["计科", "软工", "测绘", "通信", "信安", "大数据", "微电子", "信01", "信02", "信03", "信04", "信05", "信06", "信07",
-             "信08", "信09", "信10", "信11", "信12", "信13", "信14", "信15", "信16", "信17", "信18", "信19", "信20", "信21",
-             "计拔"]
 @channel.use(ListenerSchema(listening_events=[GroupMessage]))
 async def kick_group_member(app: GraiaMiraiApplication, group: Group,
                             message: MessageChain, member: Member):
     if message.asDisplay() == '开踢' \
             and (member.permission == member.permission.Administrator
-                 or member.permission == member.permission.Owner or member.id == 2654676573):
+                 or member.permission == member.permission.Owner):
         mylst = await app.memberList(group)
         for stu in mylst:
-            if stu.name == "沈坚" or stu.name == "陈宇飞" or stu.name == "233" or stu.name == "小坚果" \
-                    or stu.name == "RookieBot":
+            if stu.name in config_info['white_lst']:
                 continue
-            elif stu.name.count('-') != 2:
-                await app.sendGroupMessage(group, MessageChain.create([At(stu.id), Plain(" 被踢出")]))
-                if stu.permission == stu.permission.Member:
-                    await app.kick(group, stu)
             else:
-                str_lst = stu.name.split('-')
-                if len(str_lst[0]) != 7:
-                    await app.sendGroupMessage(group, MessageChain.create([At(stu.id), Plain(" 被踢出")]))
-                    if stu.permission == stu.permission.Member:
-                        await app.kick(group, stu)
-                elif str_lst[1] not in major_lst:
+                if not re.match(config_info['match_strategy'], stu.name):
                     await app.sendGroupMessage(group, MessageChain.create([At(stu.id), Plain(" 被踢出")]))
                     if stu.permission == stu.permission.Member:
                         await app.kick(group, stu)
