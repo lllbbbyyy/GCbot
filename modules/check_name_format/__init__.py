@@ -44,7 +44,7 @@ def check_name_format_inner_get_reg_ex():
     # 姓名
     reg_ex = reg_ex + ")\-[\u4E00-\u9FA5"
     for ch in config_info['special-ch']:    # 姓名中可能包含的特殊字符
-        reg_ex = reg_ex + '|' + ch
+        reg_ex = reg_ex + ch
     reg_ex = reg_ex + "]+$"
     return reg_ex
 
@@ -58,7 +58,7 @@ async def check_name_format(app: GraiaMiraiApplication, message: MessageChain,
     global reg_ex
     if message.asDisplay() == config_info['ask']:
         msg = [Plain(config_info['top-prompt'])]
-        msg.append(Plain("\n"))    
+        msg.append(Plain("\n"))
         memlist = await app.memberList(group)
         for mem in memlist:
             # 白名单检查
