@@ -1,0 +1,41 @@
+{
+	"default_strategy": {
+		"ignore_members": [
+
+		],
+		"should_warn": true,
+		"should_mute": true,
+		"warning_words": [
+			"不要撤回啊..",
+			"don't recall your message.."
+		],
+		"should_count": true,
+		"should_warn_with_count": true,
+		"mute_time_sec": 360
+	},
+
+	"group_enabled": {
+		"939474354": {
+			"should_use_default_strategy": false,
+
+			"strategy": {
+				"ignore_members": [
+			
+				],
+				"should_warn": true,
+				"should_mute": true,
+				"warning_words": [
+					"不要撤回啊..",
+					"don't recall your message.."
+				],
+				"should_count": true,
+				"should_warn_with_count": true,
+				"mute_time_sec": 5
+			}
+		},
+		
+		"762572821": {
+			"should_use_default_strategy": true
+		}
+	}
+}
