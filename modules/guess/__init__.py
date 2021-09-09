@@ -36,7 +36,7 @@ data = {}
 # guess
 @channel.use(ListenerSchema(listening_events=[GroupMessage]))
 async def guess(app: GraiaMiraiApplication, message: MessageChain, group: Group):
-    if message.asDisplay().startswith(config_info['key_word']) and group.id != config_info['black_list'] and config_info['allow_use']:
+    if message.asDisplay().startswith(config_info['key_word']) and group.id not in config_info['black_list'] and config_info['allow_use']:
         data[config_info['cloud_api']['str_key']] = message.asDisplay()[config_info['substr_start_pos']:]
         resp = requests.post(url=config_info['cloud_api']['api'], data=data)
         json = resp.json()
