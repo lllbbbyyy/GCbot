@@ -1,0 +1,10 @@
+{
+  "allow_use": true,
+  "cloud_api": {
+            "api": "https://lab.magiconch.com/api/nbnhhsh/guess",
+            "str_key": "text"
+        },
+  "black_list": [642362943],
+  "key_word": "guess ",
+  "substr_start_pos": 6
+}
