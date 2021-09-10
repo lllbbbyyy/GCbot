@@ -1,0 +1,24 @@
+{
+  "allow_use": true,
+  "url": "translate.google.cn",
+  "black_list": [642362943],
+  "str_min_len": 12,
+  "key_word": ["trans to ","trans help"],
+  "choice": {
+    "ch":"中文",
+    "en":"英语",
+    "ja":"日语",
+    "ko":"韩语",
+    "fr":"法语",
+    "de":"德语",
+    "ru":"俄语",
+    "es":"西班牙语",
+    "pt":"葡萄牙语",
+    "it":"意大利语",
+    "vi":"越南语",
+    "id":"印尼语",
+    "ar":"阿拉伯语",
+    "nl":"荷兰语"
+  },
+  "choice_len": 2
+}
