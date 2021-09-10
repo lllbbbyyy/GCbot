@@ -2,7 +2,6 @@
   "allow_use": true,
   "url": "translate.google.cn",
   "black_list": [642362943],
-  "str_min_len": 12,
   "key_word": ["trans to ","trans help"],
   "choice": {
     "ch":"中文",

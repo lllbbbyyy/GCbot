@@ -10,6 +10,8 @@ from graia.application.message.chain import MessageChain
 from graia.application.message.elements.internal import Plain
 from graia.application.entry import Friend, Group, Member, FriendMessage, GroupMessage, At
 
+from googletrans import Translator
+
 # 插件信息
 __name__ = "translation"
 __description__ = "翻译"
@@ -29,10 +31,9 @@ with open(current_path + '/config.json', 'r', encoding='utf-8') as f:
     config_info = json.load(f)
 
 
-from googletrans import Translator
-
-
 translator = Translator(service_urls=[config_info['url']])
+# str_min_len是“trans to xx ”的长度，小于该长度时不触发。
+str_min_len = len(config_info['key_word'][0]) + config_info['choice_len'] + 1
 
 
 # trans help
@@ -52,7 +53,7 @@ async def trans_help(app: GraiaMiraiApplication, message: MessageChain, group: G
 @channel.use(ListenerSchema(listening_events=[GroupMessage]))
 async def trans(app: GraiaMiraiApplication, message: MessageChain, group: Group):
     if message.asDisplay().startswith(config_info['key_word'][0]) \
-            and len(message.asDisplay()) > config_info["str_min_len"] \
+            and len(message.asDisplay()) > str_min_len \
             and group.id not in config_info['black_list'] \
             and config_info['allow_use']:
         choice = message.asDisplay()[len(config_info['key_word'][0]):len(config_info['key_word'][0]) + config_info['choice_len']]
