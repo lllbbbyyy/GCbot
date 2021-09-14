@@ -8,7 +8,7 @@ from graia.application.entry import Group, GroupMessage, Member, At, Plain, Mess
 from graia.application.group import MemberPerm
 
 # 插件信息
-__name__ = "Bullshit_Generator"
+__name__ = "bullshit_generator"
 __description__ = "狗屁不通文章生成器"
 __author__ = "SZY"
 __usage__ = "在群内根据用户输入的标题，生成对应的狗屁不通的文章"
@@ -60,8 +60,8 @@ def generator(title, length=800):
 async def text_generator(app: GraiaMiraiApplication, group: Group,
                         message: MessageChain, member: Member):
                
-    if message.asDisplay()=="Bullshit -help":
-        help="格式:\nBullshit+文章标题\neg:Bullshit 红红火火恍恍惚惚"
+    if message.asDisplay()=="bullshit -help":
+        help="格式:\nbullshit+文章标题\neg:bullshit 红红火火恍恍惚惚"
         await app.sendGroupMessage(group,MessageChain.create([Plain(help)]))
 
     elif message.asDisplay().startswith(config_info['key_word']) and group not in config_info['black_list'] and config_info['allow_use']:
@@ -74,5 +74,5 @@ async def text_generator(app: GraiaMiraiApplication, group: Group,
                 msg=generator(title)
             await app.sendGroupMessage(group, MessageChain.create([Plain(msg)]))
         else:
-            print('Bullshit_Generator:无词库文件，请检查词库文件之后重试')
+            print('bullshit_generator:无词库文件，请检查词库文件之后重试')
    

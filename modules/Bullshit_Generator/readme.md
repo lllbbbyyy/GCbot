@@ -1,4 +1,4 @@
-# Bullshit_Generator
+# bullshit_generator
 
 用于产生一篇以用户输入文本为主题的狗屁不通的文章
 
@@ -7,7 +7,7 @@
 ```json
 {
     "allow_use": true,
-    "key_word":"Bullshit",
+    "key_word":"bullshit",
     "text_length":200,
     "content_start_pos":8,
     "black_list":[939474354,761222195]
@@ -26,4 +26,4 @@
 
 列表`black_list`表示不使用的群，防止在重要的群当中掩埋掉重要消息
 
-该插件可以使用help语句来显示用法，语句为`Bullshit -help`
+该插件可以使用help语句来显示用法，语句为`bullshit -help`
