@@ -58,8 +58,8 @@ async def self_mute(app: GraiaMiraiApplication, message: MessageChain,
                         second = int(float(time_str))
                     
                     #禁言时间超上限取上限
-                    if second > 30 * 24 * 60 * 60:
-                        second = 30 * 24 * 60 * 60
+                    if second > strategy['time-range']:
+                        second = strategy['time-range']
                         await app.mute(group, member.id, second)
                         await app.sendGroupMessage(group, MessageChain.create([At(member.id), Plain(' ' + strategy['over-range-message'])]))
                     else:
