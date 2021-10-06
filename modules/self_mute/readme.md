@@ -11,8 +11,7 @@
             "success-message" : "已禁言",
             "bot-no-permission-message" : "我没有禁言权限。",
             "target-not-member-message" : "你无法被我禁言。",
-            "over-range-message" : "禁言时间过长，已禁言30天。",
-            "time-range" : 2592000
+            "over-range-message" : "禁言时间过长，已禁言30天。"
         },
         "groups-enabled" :
         {
@@ -29,8 +28,7 @@
                     "success-message" : "满足你！",
                     "bot-no-permission-message" : "等我有了管理再来治你！",
                     "target-not-member-message" : "呜呜呜，我帮不了你。",
-                    "over-range-message" : "这么久我怕世界把你忘了，满足你30天吧！",
-                    "time-range" : 2592000
+                    "over-range-message" : "这么久我怕世界把你忘了，满足你30天吧！"
                 }
             }
         }
@@ -53,8 +51,6 @@
 字符串`target-not-member-message`表示希望被禁言者为管理员或群主时的提示消息
 
 字符串`over-range-message`表示禁言时间过长的提示消息
-
-`time-range`表示最长禁言时间
 
 ### 群内触发格式
 
